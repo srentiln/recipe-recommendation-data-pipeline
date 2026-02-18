@@ -1,10 +1,10 @@
 STND_CLMNS = {
-  "RID": str,
+  "recipe_ID": str,
   "name": str,
-  "ings": list,
-  "tprep": float,
-  "tcook": float,
-  "servs": float,
+  "ingredients": list,
+  "time_prep": float,
+  "time_cook": float,
+  "servingss": float,
   "tags": list,
   "source": str,
 }
