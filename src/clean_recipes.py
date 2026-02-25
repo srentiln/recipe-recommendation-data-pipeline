@@ -3,7 +3,7 @@ import pandas as pd
 import re
 import json
 from pathlib import Path
-from schema imort STND_CLMNS
+from schema import STND_CLMNS
 
 # define input and output
 RAW_PATH = Path("data/raw/recipes.csv")
@@ -43,7 +43,7 @@ def parse_list_field(value):
   except:
     pass
   # split if fail
-  return [v.strip() for c in str(value).split(",")]
+  return [v.strip() for v in str(value).split(",")]
 
 # normalize time
 def extract_minutes(value):
@@ -51,7 +51,7 @@ def extract_minutes(value):
     return None
   value = str(value).lower()
   hours = re.search(r"(\d+)\s*h", value)
-  minutes = re.search(r"(\d+)\s+m", vlaue)
+  minutes = re.search(r"(\d+)\s+m", value)
   total = 0
   if hours:
     total += int(hours.group(1)) * 60
@@ -65,7 +65,7 @@ def clean_dataset(path):
   df = normalize_column_names(df)
   # clean text
   if "name" in df.columns:
-    df["name"] = df["name"].apply(clean_test)
+    df["name"] = df["name"].apply(clean_text)
   # parse lists
   for col in ["ingredients", "instructions", "tags"]:
     if col in df.columns:
@@ -87,5 +87,5 @@ if __name__ == "__main__":
   clean_df = clean_dataset(RAW_PATH)
   OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
   clean_df.to_csv(OUT_PATH, index=False)
-  print("Clean dataset saved to:" OUT_PATH)
+  print("Clean dataset saved to:", OUT_PATH)
   
